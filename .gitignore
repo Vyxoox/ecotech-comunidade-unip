@@ -1,7 +1,6 @@
-# Ignorar pasta de manuais internos e arquivos de trabalho locais
+# Ignorar pastas de entrega acadêmica interna da UNIP e manuais no repositório público do GitHub
+01_Entrega_Faculdade_Portal_UNIP/
+03_Manuais_UNIP_e_Scripts/
 Manuais/
 __pycache__/
 *.pyc
-Relatorio_Extensao_II_ADS_2026-2.html
-gerar_relatorio_extensao.py
-TEXTOS_PRONTOS_PARA_PORTAL_UNIP.md
