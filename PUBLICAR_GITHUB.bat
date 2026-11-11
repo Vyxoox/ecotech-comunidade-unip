@@ -6,7 +6,7 @@ echo   ENVIANDO PROJETO ECOTECH COMUNIDADE PARA O GITHUB
 echo   Repositorio: https://github.com/Vyxoox/ecotech-comunidade-unip.git
 echo ==========================================================
 echo.
-git push -u origin main
+git push -u origin main --force
 echo.
 echo ==========================================================
 echo   CONCLUIDO! Agora ative o GitHub Pages em:
