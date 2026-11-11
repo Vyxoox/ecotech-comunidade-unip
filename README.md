@@ -44,7 +44,7 @@
 - **Vittor Salvador de Oliveira** (RA: R1321D0)
 - **Vitor Hugo Godoy Amaral** (RA: R9918B8)
 - **Saullo Viale** (RA: R260JI5)
-- **Cauê**
+- **Cauê Henrique de Oliveira Carmacio** (RA: H978ED3)
+- **Júlia De Maman Gaspar** (RA: H8758E0)
+- **Ana Lívia**
 - **Gabriel**
-- **Kenai**
-- **Morgan**
