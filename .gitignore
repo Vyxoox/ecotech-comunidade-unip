@@ -1,0 +1,7 @@
+# Ignorar pasta de manuais internos e arquivos de trabalho locais
+Manuais/
+__pycache__/
+*.pyc
+Relatorio_Extensao_II_ADS_2026-2.html
+gerar_relatorio_extensao.py
+TEXTOS_PRONTOS_PARA_PORTAL_UNIP.md

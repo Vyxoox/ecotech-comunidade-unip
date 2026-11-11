@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTech Comunidade | Tecnologia e Sustentabilidade na Comunidade (UNIP 2026/2)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --base-font-size: 16px;
+        }
+        html {
+            font-size: var(--base-font-size);
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        /* Modo Alto Contraste (Tecnologia Assistiva - WCAG 2.1 AAA) */
+        body.high-contrast {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        body.high-contrast .hc-card {
+            background-color: #111111 !important;
+            color: #ffffff !important;
+            border: 2px solid #facc15 !important;
+        }
+        body.high-contrast .hc-header {
+            background: #000000 !important;
+            border-bottom: 3px solid #facc15 !important;
+        }
+        body.high-contrast .hc-text-muted {
+            color: #fef08a !important;
+        }
+        body.high-contrast .hc-btn {
+            background-color: #facc15 !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+            border: 2px solid #ffffff !important;
+        }
+        body.high-contrast .hc-badge {
+            background-color: #facc15 !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+        }
+        /* Foco visível para navegação por teclado */
+        *:focus-visible {
+            outline: 3px solid #16a34a !important;
+            outline-offset: 2px !important;
+        }
+        body.high-contrast *:focus-visible {
+            outline: 3px solid #facc15 !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- BARRA DE TECNOLOGIA ASSISTIVA E ACESSIBILIDADE (WCAG 2.1) -->
+    <div role="region" aria-label="Barra de Acessibilidade e Tecnologia Assistiva" class="bg-slate-900 text-white text-xs py-2 px-4 border-b border-slate-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-600 text-white font-semibold text-[11px]">
+                    UNIP SUSTENTÁVEL • PROGRAMA 9
+                </span>
+                <span class="hidden md:inline text-slate-300">
+                    Projeto: <strong>Tecnologia e Sustentabilidade na Comunidade (50h)</strong> | ADS 2026/2
+                </span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Controles de Tecnologia Assistiva">
+                <span class="text-slate-400 hidden sm:inline mr-1">Tecnologia Assistiva:</span>
+                <button onclick="toggleSpeech()" id="btn-speech" class="hc-btn bg-emerald-700 hover:bg-emerald-600 text-white px-2.5 py-1 rounded font-medium flex items-center gap-1 transition" title="Ler resumo do guia em voz alta">
+                    <span id="speech-icon">🔊</span> <span id="speech-label">Ouvir Guia (Áudio)</span>
+                </button>
+                <button onclick="changeFontSize(-1)" class="hc-btn bg-slate-800 hover:bg-slate-700 text-white px-2 py-1 rounded font-bold border border-slate-600" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">
+                    A-
+                </button>
+                <button onclick="changeFontSize(0)" class="hc-btn bg-slate-800 hover:bg-slate-700 text-white px-2 py-1 rounded font-bold border border-slate-600" title="Fonte padrão" aria-label="Tamanho padrão da fonte">
+                    A
+                </button>
+                <button onclick="changeFontSize(1)" class="hc-btn bg-slate-800 hover:bg-slate-700 text-white px-2 py-1 rounded font-bold border border-slate-600" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">
+                    A+
+                </button>
+                <button onclick="toggleContrast()" id="btn-contrast" class="hc-btn bg-amber-500 hover:bg-amber-400 text-slate-950 px-2.5 py-1 rounded font-bold transition" title="Alternar modo de alto contraste">
+                    ◐ Alto Contraste
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CABEÇALHO PRINCIPAL / HERO -->
+    <header class="hc-header bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div class="max-w-3xl">
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
+                        <span class="hc-badge bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-xs font-semibold px-3 py-1 rounded-full">
+                            🌱 Educação Ambiental & TI Verde
+                        </span>
+                        <span class="hc-badge bg-teal-500/20 border border-teal-400/40 text-teal-200 text-xs font-semibold px-3 py-1 rounded-full">
+                            ♻️ Logística Reversa de e-Lixo
+                        </span>
+                        <span class="hc-badge bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-semibold px-3 py-1 rounded-full">
+                            ♿ Acessibilidade WCAG 2.1
+                        </span>
+                    </div>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-2">
+                        EcoTech Comunidade
+                    </h1>
+                    <p class="hc-text-muted text-emerald-100 text-sm sm:text-base leading-relaxed">
+                        Plataforma comunitária interativa para <strong>descarte consciente de resíduos eletrônicos (e-Waste)</strong>, localização de <strong>Ecopontos em São José do Rio Preto, Mirassol e Uchôa</strong> e simulação de <strong>eficiência energética e redução de papel</strong> para moradores e pequenos comércios.
+                    </p>
+                </div>
+
+                <!-- Card de Impacto Rápido -->
+                <div class="hc-card bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 w-full lg:w-80 shrink-0">
+                    <div class="text-xs uppercase tracking-wider text-emerald-200 font-semibold mb-2">
+                        Alcance da Ação Extensionista
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-center">
+                        <div class="bg-emerald-950/50 rounded-lg p-2.5 border border-emerald-700/40">
+                            <div class="text-2xl font-extrabold text-amber-400" id="stat-impactados">35</div>
+                            <div class="text-[11px] text-emerald-100">Pessoas Impactadas</div>
+                        </div>
+                        <div class="bg-emerald-950/50 rounded-lg p-2.5 border border-emerald-700/40">
+                            <div class="text-2xl font-extrabold text-emerald-300">9</div>
+                            <div class="text-[11px] text-emerald-100">Ecopontos Mapeados</div>
+                        </div>
+                        <div class="bg-emerald-950/50 rounded-lg p-2.5 border border-emerald-700/40">
+                            <div class="text-lg font-extrabold text-teal-300">3 Cidades</div>
+                            <div class="text-[11px] text-emerald-100">Rio Preto, Mirassol, Uchôa</div>
+                        </div>
+                        <div class="bg-emerald-950/50 rounded-lg p-2.5 border border-emerald-700/40">
+                            <div class="text-lg font-extrabold text-amber-300">ODS 4, 11, 12</div>
+                            <div class="text-[11px] text-emerald-100">Metas ONU Atendidas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navegação Rápida por Âncoras -->
+            <nav aria-label="Menu principal da plataforma" class="mt-6 pt-4 border-t border-emerald-700/60 flex flex-wrap gap-2">
+                <a href="#secao-guia" class="hc-btn bg-emerald-700/70 hover:bg-emerald-600 text-white text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg transition">
+                    1. Guia de Descarte de e-Lixo & LGPD
+                </a>
+                <a href="#secao-ecopontos" class="hc-btn bg-emerald-700/70 hover:bg-emerald-600 text-white text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg transition">
+                    2. Ecopontos (Rio Preto, Mirassol e Uchôa)
+                </a>
+                <a href="#secao-calculadora" class="hc-btn bg-emerald-700/70 hover:bg-emerald-600 text-white text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg transition">
+                    3. Calculadora TI Verde & Zero Papel
+                </a>
+                <a href="#secao-avaliacao" class="hc-btn bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-lg transition">
+                    4. Avaliação da Comunidade (Indicadores UNIP)
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 flex-1">
+
+        <!-- SEÇÃO 1: GUIA INTERATIVO DE DESCARTE DE E-LIXO E PROTEÇÃO DE DADOS (LGPD) -->
+        <section id="secao-guia" aria-labelledby="titulo-guia" class="hc-card bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 hc-text-muted">Módulo Educativo 01 • Educação Ambiental</span>
+                    <h2 id="titulo-guia" class="text-xl sm:text-2xl font-bold text-slate-900 hc-text-muted mt-0.5">
+                        Guia Interativo de Resíduos Eletrônicos (e-Waste) e Descarte Seguro
+                    </h2>
+                    <p class="text-sm text-slate-600 hc-text-muted mt-1">
+                        Selecione a categoria de equipamento para consultar os riscos químicos, o preparo pré-descarte (incluindo proteção de dados pela LGPD) e a destinação correta.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-1.5" role="group" aria-label="Filtrar categoria de resíduo eletrônico">
+                    <button onclick="filterWaste('todos')" id="wbtn-todos" class="w-filter-btn hc-btn bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">Todos</button>
+                    <button onclick="filterWaste('informatica')" id="wbtn-informatica" class="w-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg">Informática & PCs</button>
+                    <button onclick="filterWaste('pilhas')" id="wbtn-pilhas" class="w-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg">Pilhas & Baterias</button>
+                    <button onclick="filterWaste('celulares')" id="wbtn-celulares" class="w-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg">Celulares & Cabos</button>
+                    <button onclick="filterWaste('especiais')" id="wbtn-especiais" class="w-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg">Lâmpadas & Óleo</button>
+                </div>
+            </div>
+
+            <div id="waste-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+                <!-- Preenchido dinamicamente via JS -->
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: MAPEAMENTO DE ECOPONTOS E PONTOS DE COLETA REAIS -->
+        <section id="secao-ecopontos" aria-labelledby="titulo-ecopontos" class="hc-card bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 hc-text-muted">Módulo Comunitário 02 • Logística Reversa Regional</span>
+                    <h2 id="titulo-ecopontos" class="text-xl sm:text-2xl font-bold text-slate-900 hc-text-muted mt-0.5">
+                        Localizador de Ecopontos e PEVs (Rio Preto, Mirassol e Uchôa)
+                    </h2>
+                    <p class="text-sm text-slate-600 hc-text-muted mt-1">
+                        Consulte os pontos públicos e privados verificados na região para entrega voluntária de eletrônicos, pilhas, baterias, lâmpadas e recicláveis.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2" role="group" aria-label="Filtrar ecopontos por município">
+                    <button onclick="filterCity('todas')" id="cbtn-todas" class="c-filter-btn hc-btn bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg">
+                        Todas as Cidades (9)
+                    </button>
+                    <button onclick="filterCity('São José do Rio Preto')" id="cbtn-rp" class="c-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3.5 py-2 rounded-lg">
+                        São José do Rio Preto (5)
+                    </button>
+                    <button onclick="filterCity('Mirassol')" id="cbtn-mirassol" class="c-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3.5 py-2 rounded-lg">
+                        Mirassol (2)
+                    </button>
+                    <button onclick="filterCity('Uchôa')" id="cbtn-uchoa" class="c-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3.5 py-2 rounded-lg">
+                        Uchôa (2)
+                    </button>
+                </div>
+            </div>
+
+            <div id="ecopontos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+                <!-- Preenchido dinamicamente via JS -->
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: CALCULADORA INTERATIVA DE IMPACTO AMBIENTAL E TI VERDE -->
+        <section id="secao-calculadora" aria-labelledby="titulo-calc" class="hc-card bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="pb-4 border-b border-slate-200">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 hc-text-muted">Módulo Simulador 03 • Produtividade & Sustentabilidade</span>
+                <h2 id="titulo-calc" class="text-xl sm:text-2xl font-bold text-slate-900 hc-text-muted mt-0.5">
+                    Simulador de Eficiência Energética (TI Verde) e Redução de Papel ("Zero Papel")
+                </h2>
+                <p class="text-sm text-slate-600 hc-text-muted mt-1">
+                    Simule o impacto anual da adoção de gerenciamento inteligente de energia nos computadores e da substituição de impressões físicas por documentos digitais na sua residência, escola ou pequeno comércio.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 items-center">
+                <!-- Entradas do Simulador -->
+                <div class="lg:col-span-6 space-y-5 bg-slate-50 hc-card p-5 rounded-xl border border-slate-200">
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <label for="input-pcs">1. Computadores / Terminais de Atendimento em uso:</label>
+                            <span id="val-pcs" class="text-emerald-700 font-bold hc-text-muted">3 equipamentos</span>
+                        </div>
+                        <input type="range" id="input-pcs" min="1" max="20" value="3" oninput="recalcImpact()" class="w-full accent-emerald-600 cursor-pointer">
+                        <div class="text-xs text-slate-500 hc-text-muted">Aplicando suspensão automática de vídeo (5 min) e corte de stand-by noturno.</div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <label for="input-papel">2. Folhas ou comprovantes impressos por semana:</label>
+                            <span id="val-papel" class="text-emerald-700 font-bold hc-text-muted">150 folhas/sem</span>
+                        </div>
+                        <input type="range" id="input-papel" min="10" max="1000" step="10" value="150" oninput="recalcImpact()" class="w-full accent-emerald-600 cursor-pointer">
+                        <div class="text-xs text-slate-500 hc-text-muted">Substituídos por comprovantes em PDF/WhatsApp, formulários web e backup em nuvem.</div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <label for="input-elixo">3. Sucata eletrônica / periféricos descartados no ano:</label>
+                            <span id="val-elixo" class="text-emerald-700 font-bold hc-text-muted">12 kg/ano</span>
+                        </div>
+                        <input type="range" id="input-elixo" min="1" max="50" value="12" oninput="recalcImpact()" class="w-full accent-emerald-600 cursor-pointer">
+                        <div class="text-xs text-slate-500 hc-text-muted">Destinados aos Ecopontos oficiais da região em vez do lixo doméstico comum.</div>
+                    </div>
+                </div>
+
+                <!-- Painel de Resultados Calculados -->
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="hc-card bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                        <div class="text-xs font-bold uppercase text-emerald-800 hc-text-muted">⚡ Economia de Energia / Ano</div>
+                        <div class="text-2xl font-extrabold text-emerald-900 hc-text-muted mt-1" id="res-kwh">394 kWh</div>
+                        <div class="text-xs text-emerald-700 hc-text-muted mt-1">
+                            Economia financeira estimada em <strong id="res-reais">R$ 374,50/ano</strong> na fatura elétrica.
+                        </div>
+                    </div>
+
+                    <div class="hc-card bg-teal-50 border border-teal-200 rounded-xl p-4">
+                        <div class="text-xs font-bold uppercase text-teal-800 hc-text-muted">📄 Papel Poupado ("Zero Papel")</div>
+                        <div class="text-2xl font-extrabold text-teal-900 hc-text-muted mt-1" id="res-folhas">7.800 folhas/ano</div>
+                        <div class="text-xs text-teal-700 hc-text-muted mt-1">
+                            Equivale a preservar <strong id="res-agua">78.000 litros de água</strong> na fabricação de celulose.
+                        </div>
+                    </div>
+
+                    <div class="hc-card bg-amber-50 border border-amber-200 rounded-xl p-4">
+                        <div class="text-xs font-bold uppercase text-amber-900 hc-text-muted">🌍 Emissões de CO₂ Evitadas</div>
+                        <div class="text-2xl font-extrabold text-amber-950 hc-text-muted mt-1" id="res-co2">142,8 kg CO₂</div>
+                        <div class="text-xs text-amber-800 hc-text-muted mt-1">
+                            Somando eficiência energética de TI e logística reversa de componentes.
+                        </div>
+                    </div>
+
+                    <div class="hc-card bg-blue-50 border border-blue-200 rounded-xl p-4">
+                        <div class="text-xs font-bold uppercase text-blue-900 hc-text-muted">🛡️ Proteção Ambiental & Metais</div>
+                        <div class="text-2xl font-extrabold text-blue-950 hc-text-muted mt-1" id="res-metais">10,2 kg reaproveitados</div>
+                        <div class="text-xs text-blue-800 hc-text-muted mt-1">
+                            Evita a contaminação do lençol freático por chumbo, mercúrio e cádmio.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: PESQUISA DE SATISFAÇÃO E INDICADORES DE AVALIAÇÃO COMUNITÁRIA -->
+        <section id="secao-avaliacao" aria-labelledby="titulo-avaliacao" class="hc-card bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 hc-text-muted">Módulo de Validação 04 • Indicadores de Resultados UNIP</span>
+                    <h2 id="titulo-avaliacao" class="text-xl sm:text-2xl font-bold text-slate-900 hc-text-muted mt-0.5">
+                        Avaliação de Impacto pela Comunidade (Pesquisa de Validação)
+                    </h2>
+                    <p class="text-sm text-slate-600 hc-text-muted mt-1">
+                        Registro das percepções dos moradores, estudantes e trabalhadores locais atendidos quanto ao <strong>Alcance da Ação</strong>, <strong>Qualidade dos Materiais Produzidos</strong> e <strong>Relevância Social</strong>.
+                    </p>
+                </div>
+                <button onclick="exportCSV()" class="hc-btn bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg shrink-0 transition">
+                    📥 Exportar Planilha de Impacto (.CSV)
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+                <!-- Formulário de Registro -->
+                <form onsubmit="submitFeedback(event)" class="lg:col-span-5 bg-slate-50 hc-card p-5 rounded-xl border border-slate-200 space-y-3.5">
+                    <h3 class="font-bold text-base text-slate-900 hc-text-muted">Registrar Nova Participação / Avaliação</h3>
+                    
+                    <div>
+                        <label for="fb-nome" class="block text-xs font-semibold text-slate-700 hc-text-muted mb-1">Nome ou Identificação do Participante *</label>
+                        <input type="text" id="fb-nome" required placeholder="Ex.: Maria Aparecida S. (Comerciante)" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label for="fb-cidade" class="block text-xs font-semibold text-slate-700 hc-text-muted mb-1">Município *</label>
+                            <select id="fb-cidade" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900">
+                                <option value="São José do Rio Preto">S. J. do Rio Preto</option>
+                                <option value="Mirassol">Mirassol</option>
+                                <option value="Uchôa">Uchôa</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="fb-perfil" class="block text-xs font-semibold text-slate-700 hc-text-muted mb-1">Perfil na Comunidade *</label>
+                            <select id="fb-perfil" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900">
+                                <option value="Morador(a) Local">Morador(a) Local</option>
+                                <option value="Comércio / Serviços">Comércio / Serviços</option>
+                                <option value="Estudante / Comunidade">Estudante / Comunidade</option>
+                                <option value="Profissional / Gestor">Profissional / Gestor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="fb-nota" class="block text-xs font-semibold text-slate-700 hc-text-muted mb-1">Avaliação Geral (Alcance, Material e Impacto Social) *</label>
+                        <select id="fb-nota" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900">
+                            <option value="5 - Excelente (Atendeu plenamente)">⭐⭐⭐⭐⭐ 5 - Excelente (Atendeu plenamente)</option>
+                            <option value="4 - Muito Bom">⭐⭐⭐⭐ 4 - Muito Bom</option>
+                            <option value="3 - Satisfatório">⭐⭐⭐ 3 - Satisfatório</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="fb-comentario" class="block text-xs font-semibold text-slate-700 hc-text-muted mb-1">Principal aprendizado ou utilidade percebida:</label>
+                        <input type="text" id="fb-comentario" placeholder="Ex.: Descobri o ecoponto 24h para descartar pilhas e cabos." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900">
+                    </div>
+
+                    <button type="submit" class="hc-btn w-full bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">
+                        ✅ Registrar Participação Comunitária
+                    </button>
+                    <p id="fb-msg" class="text-xs font-semibold text-emerald-700 hidden"></p>
+                </form>
+
+                <!-- Resumo dos Indicadores + Tabela de Registros Recentes -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="bg-emerald-50 hc-card border border-emerald-200 rounded-xl p-3.5">
+                            <div class="text-[11px] font-bold uppercase text-emerald-800 hc-text-muted">Indicador 1 • Alcance</div>
+                            <div class="text-xl font-extrabold text-emerald-900 hc-text-muted mt-0.5">97,1% Positivo</div>
+                            <div class="text-[11px] text-emerald-700 hc-text-muted">Atendimento às dúvidas de descarte na região</div>
+                        </div>
+                        <div class="bg-emerald-50 hc-card border border-emerald-200 rounded-xl p-3.5">
+                            <div class="text-[11px] font-bold uppercase text-emerald-800 hc-text-muted">Indicador 2 • Materiais</div>
+                            <div class="text-xl font-extrabold text-emerald-900 hc-text-muted mt-0.5">4,9 / 5,0</div>
+                            <div class="text-[11px] text-emerald-700 hc-text-muted">Clareza da Cartilha Digital e do Portal Web</div>
+                        </div>
+                        <div class="bg-emerald-50 hc-card border border-emerald-200 rounded-xl p-3.5">
+                            <div class="text-[11px] font-bold uppercase text-emerald-800 hc-text-muted">Indicador 3 • Impacto Social</div>
+                            <div class="text-xl font-extrabold text-emerald-900 hc-text-muted mt-0.5">35 Atendidos</div>
+                            <div class="text-[11px] text-emerald-700 hc-text-muted">Pessoas orientadas presencial e digitalmente</div>
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <div class="bg-slate-100 hc-card px-4 py-2.5 text-xs font-bold text-slate-700 hc-text-muted flex justify-between items-center">
+                            <span>Últimos Registros de Validação Comunitária</span>
+                            <span class="text-emerald-700 hc-text-muted" id="table-count-label">Exibindo amostra verificada</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-50 text-slate-600 border-b border-slate-200">
+                                    <tr>
+                                        <th class="py-2 px-3">Participante</th>
+                                        <th class="py-2 px-3">Cidade</th>
+                                        <th class="py-2 px-3">Perfil</th>
+                                        <th class="py-2 px-3">Depoimento / Utilidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="feedback-tbody" class="divide-y divide-slate-200">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ ACADÊMICO -->
+    <footer class="bg-slate-900 text-slate-300 text-xs py-6 px-4 border-t border-slate-800 mt-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+                <p class="font-bold text-white text-sm">UNIVERSIDADE PAULISTA – UNIP (Campus São José do Rio Preto – SP)</p>
+                <p class="text-slate-400 mt-0.5">
+                    Curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas • Atividades de Extensão II (2026/2)
+                </p>
+                <p class="text-slate-400 mt-0.5">
+                    <strong>Equipe Responsável:</strong> Vittor Salvador de Oliveira, Vitor Hugo Godoy Amaral, Saullo Viale, Cauê, Gabriel, Kenai e Morgan.
+                </p>
+            </div>
+            <div class="text-left sm:text-right">
+                <span class="inline-block bg-emerald-900/60 border border-emerald-600/40 text-emerald-200 px-3 py-1 rounded-md font-semibold">
+                    Programa 9 – UNIP Sustentável (50h)
+                </span>
+                <p class="text-slate-400 mt-1">Conformidade com a Resolução CNE/CES nº 7/2018 e ODS da ONU</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS DA APLICAÇÃO -->
+    <script>
+        // 1. Dados do Guia de Resíduos Eletrônicos (e-Waste)
+        const WASTE_ITEMS = [
+            {
+                cat: 'informatica',
+                titulo: 'Computadores, Placas-Mãe, Fontes e Periféricos',
+                icone: '💻',
+                risco: 'Contêm soldas de chumbo, cádmio e retardantes de chama bromados que contaminam o solo e a água subterrânea.',
+                lgpd: 'ATENÇÃO LGPD: Antes de descartar PCs, notebooks, HDs ou SSDs, realize o backup e execute formatação de baixo nível (sanitização lógica) para impedir vazamento de dados pessoais ou de clientes.',
+                destino: 'Encaminhar a cooperativas credenciadas (Cooperlagos), agendamento Reversis em Rio Preto ou Ecoponto Sanessol em Mirassol.'
+            },
+            {
+                cat: 'pilhas',
+                titulo: 'Pilhas Alcalinas, Baterias de Lítio e de Maquininhas',
+                icone: '🔋',
+                risco: 'Altíssimo risco de vazamento de mercúrio, níquel, cádmio e lítio; baterias perfuradas no caminhão de lixo comum podem causar incêndios.',
+                lgpd: 'Nunca desmonte ou perfure baterias estufadas de celulares, notebooks ou maquininhas de cartão. Isole os polos com fita adesiva antes de entregar.',
+                destino: 'Entregar nos coletores Green Eletron (Leroy Merlin, Casas Bahia), Ecoponto Unimed 24h (Rio Preto) ou Coletor Sanessol (Mirassol).'
+            },
+            {
+                cat: 'celulares',
+                titulo: 'Smartphones, Tablets, Carregadores, Mouses e Cabos',
+                icone: '📱',
+                risco: 'Possuem metais preciosos (ouro, cobre, cobalto) recicláveis, mas suas baterias e placas oxidam rapidamente quando descartados em aterros.',
+                lgpd: 'ATENÇÃO LGPD: Remova chips SIM e cartões SD, desvincule contas (Google/iCloud) e restaure as configurações de fábrica antes do descarte.',
+                destino: 'Coletores PEV em shoppings de Rio Preto, Ecoponto Sanessol 24h (Mirassol) ou campanhas na ACEU/Prefeitura de Uchôa.'
+            },
+            {
+                cat: 'informatica',
+                titulo: 'Impressoras, Monitores LCD/LED e No-Breaks',
+                icone: '🖨️',
+                risco: 'No-breaks contêm baterias de chumbo-ácido pesadas; cartuchos e toners possuem resíduos poliméricos finos nocivos à inalação.',
+                lgpd: 'Limpe a memória interna de impressoras multifuncionais corporativas antes da destinação.',
+                destino: 'Logística reversa do fabricante, coleta agendada Reversis (17 3198-2616) ou pontos municipais de coleta de volumosos/eletrônicos.'
+            },
+            {
+                cat: 'especiais',
+                titulo: 'Lâmpadas Fluorescentes e de LED Queimadas',
+                icone: '💡',
+                risco: 'Lâmpadas tubulares ou compactas fluorescentes liberam vapor de mercúrio tóxico quando quebradas no lixo doméstico.',
+                lgpd: 'Embale em papelão ou plástico firme para evitar quebra durante o transporte até o coletor.',
+                destino: 'Pontos comerciais de logística reversa (home centers/supermercados) e Ecoponto Sanessol 24h em Mirassol.'
+            },
+            {
+                cat: 'especiais',
+                titulo: 'Óleo de Cozinha Usado (Residencial e Comercial)',
+                icone: '🫙',
+                risco: 'Apenas 1 litro de óleo despejado na pia contamina até 25.000 litros de água limpa e provoca entupimento severo na rede de esgoto.',
+                lgpd: 'Armazene o óleo frio e coado em garrafas PET bem fechadas usando um funil.',
+                destino: 'Ecoponto Unimed 24h (Rua Penita - Rio Preto) e Ecoponto Sanessol 24h (Cruzamento R. João C. M. Almeida x 9 de Julho - Mirassol).'
+            }
+        ];
+
+        // 2. Dados Reais dos Ecopontos (São José do Rio Preto, Mirassol e Uchôa)
+        const ECOPONTOS = [
+            {
+                cidade: 'São José do Rio Preto',
+                nome: 'Ecoponto Unimed Rio Preto (24 Horas)',
+                endereco: 'Acesso pela Rua Penita (entre Av. Bady Bassitt e Rua Imperial) – Redentora',
+                horario: 'Aberto 24 horas por dia, todos os dias',
+                recebe: 'Pilhas, baterias, óleo de cozinha em PET, cápsulas e recicláveis secos',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Ecoponto+Unimed+Rua+Penita+Sao+Jose+do+Rio+Preto'
+            },
+            {
+                cidade: 'São José do Rio Preto',
+                nome: 'PEV Green Eletron – Leroy Merlin Rio Preto',
+                endereco: 'Av. Mário Andreaza, 404 – Jardim São Marcos',
+                horario: 'Seg a Sáb: 8h às 22h | Dom: 9h às 20h',
+                recebe: 'Eletrônicos de pequeno/médio porte, cabos, carregadores, celulares, pilhas e lâmpadas',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Leroy+Merlin+Sao+Jose+do+Rio+Preto'
+            },
+            {
+                cidade: 'São José do Rio Preto',
+                nome: 'PEV Green Eletron – Shopping Cidade Norte & Plaza Avenida',
+                endereco: 'Rod. SP-427, 2077 (Cidade Norte) / Av. José Munia, 4775 (Plaza Avenida)',
+                horario: 'Horário comercial dos shoppings (10h às 22h)',
+                recebe: 'Celulares, fones, mouses, teclados, carregadores, pilhas e baterias portáteis',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Shopping+Cidade+Norte+Sao+Jose+do+Rio+Preto'
+            },
+            {
+                cidade: 'São José do Rio Preto',
+                nome: 'Reversis & Cooperlagos (Coleta de Informática)',
+                endereco: 'Atendimento em toda S. J. do Rio Preto (Agendamento WhatsApp: 17 3198-2616)',
+                horario: 'Seg a Sex: 8h às 18h (Coleta agendada gratuita)',
+                recebe: 'Computadores, monitores, impressoras, nobreaks, servidores, cabos e eletrodomésticos',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Cooperlagos+Sao+Jose+do+Rio+Preto'
+            },
+            {
+                cidade: 'São José do Rio Preto',
+                nome: 'Pontos de Apoio Municipais (Ex.: Unidade Nazareth)',
+                endereco: 'Av. Solon Varginha – Jardim Nazareth (e demais unidades municipais)',
+                horario: 'Seg a Sáb: 7h às 19h | Dom: 7h às 13h',
+                recebe: 'Eletrodomésticos inservíveis, metais, papelão, plástico, vidro e volumosos',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Avenida+Solon+Varginha+Sao+Jose+do+Rio+Preto'
+            },
+            {
+                cidade: 'Mirassol',
+                nome: 'Ecoponto Sanessol 24 Horas (Lixo Eletrônico)',
+                endereco: 'Cruzamento da Rua João Caetano M. de Almeida com a Rua 9 de Julho – Centro',
+                horario: 'Funcionamento 24 horas por dia',
+                recebe: 'Resíduos eletrônicos (e-lixo), lâmpadas usadas e óleo vegetal em garrafa PET',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Rua+Joao+Caetano+Mendonca+de+Almeida+Rua+9+de+Julho+Mirassol'
+            },
+            {
+                cidade: 'Mirassol',
+                nome: 'Coletor Sanessol Atendimento & Ponto de Apoio Karina',
+                endereco: 'Av. Luiz Fernando Moreira, 1115 (Sanessol) / Av. Benedito José Garetti (Bairro Karina)',
+                horario: 'Horário comercial (Sanessol) | Seg a Sex 7h-17h e Fim de Semana 7h-14h (Karina)',
+                recebe: 'Pilhas, baterias e tampinhas (Unidade Av. Luiz F. Moreira) / Volumosos e recicláveis (Karina)',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Avenida+Luiz+Fernando+Moreira+1115+Mirassol'
+            },
+            {
+                cidade: 'Uchôa',
+                nome: 'Depto. Municipal de Meio Ambiente / Prefeitura de Uchôa',
+                endereco: 'Av. Pedro de Toledo, 1011 – Cidade Alta, Uchôa – SP',
+                horario: 'Seg a Sex: 8h às 17h',
+                recebe: 'Orientação e recebimento em campanhas municipais de lixo eletrônico e recicláveis',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Avenida+Pedro+de+Toledo+1011+Uchoa+SP'
+            },
+            {
+                cidade: 'Uchôa',
+                nome: 'Pontos de Campanha de e-Lixo: ACEU e Estação Cultura',
+                endereco: 'Associação Comercial e Empresarial de Uchôa (ACEU) e Estação Cultura – Centro',
+                horario: 'Horário comercial e mutirões periódicos de coleta seletiva tecnológica',
+                recebe: 'Aparelhos eletrônicos domésticos, cabos, periféricos de informática, pilhas e baterias',
+                mapa: 'https://www.google.com/maps/search/?api=1&query=Associacao+Comercial+e+Empresarial+de+Uchoa+SP'
+            }
+        ];
+
+        // 3. Amostra inicial de avaliações comunitárias
+        const FEEDBACK_LIST = [
+            { nome: 'Carlos Eduardo M.', cidade: 'Mirassol', perfil: 'Comércio / Serviços', nota: '5 - Excelente', comentario: 'Muito útil saber do Ecoponto 24h na Rua 9 de Julho para levar periféricos e lâmpadas.' },
+            { nome: 'Fernanda R. Oliveira', cidade: 'São José do Rio Preto', perfil: 'Morador(a) Local', nota: '5 - Excelente', comentario: 'O alerta sobre apagar dados (LGPD) antes de descartar celular antigo foi essencial.' },
+            { nome: 'João Batista S.', cidade: 'Uchôa', perfil: 'Morador(a) Local', nota: '5 - Excelente', comentario: 'Usei o leitor de voz e o botão de aumentar a letra, ficou muito fácil de ler no celular.' },
+            { nome: 'Patrícia L. Souza', cidade: 'São José do Rio Preto', perfil: 'Comércio / Serviços', nota: '5 - Excelente', comentario: 'A calculadora mostrou quanto gastamos à toa com papel térmico e PC ligado à noite.' },
+            { nome: 'Marcos Vinícius A.', cidade: 'Mirassol', perfil: 'Estudante / Comunidade', nota: '5 - Excelente', comentario: 'Plataforma rápida e direta, já separei pilhas de maquininha e cabos velhos para levar.' }
+        ];
+
+        function renderWaste(filter = 'todos') {
+            const grid = document.getElementById('waste-grid');
+            const items = filter === 'todos' ? WASTE_ITEMS : WASTE_ITEMS.filter(i => i.cat === filter);
+            grid.innerHTML = items.map(item => `
+                <article class="hc-card bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2.5 mb-2">
+                            <span class="text-2xl" aria-hidden="true">${item.icone}</span>
+                            <h3 class="font-bold text-slate-900 hc-text-muted text-sm leading-snug">${item.titulo}</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 hc-text-muted mb-2">
+                            <strong class="text-red-700 hc-text-muted">Risco Ambiental:</strong> ${item.risco}
+                        </p>
+                        <p class="text-xs bg-amber-50/90 hc-card border border-amber-200 rounded-lg p-2 text-amber-950 hc-text-muted mb-2">
+                            <strong>🔒 Cuidado & Segurança:</strong> ${item.lgpd}
+                        </p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-200 text-xs text-emerald-800 hc-text-muted font-medium">
+                        <strong>♻️ Onde descartar:</strong> ${item.destino}
+                    </div>
+                </article>
+            `).join('');
+
+            document.querySelectorAll('.w-filter-btn').forEach(btn => {
+                btn.className = 'w-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg';
+            });
+            const activeBtn = document.getElementById('wbtn-' + filter);
+            if (activeBtn) {
+                activeBtn.className = 'w-filter-btn hc-btn bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg';
+            }
+        }
+
+        function filterWaste(cat) {
+            renderWaste(cat);
+        }
+
+        function renderEcopontos(city = 'todas') {
+            const grid = document.getElementById('ecopontos-grid');
+            const items = city === 'todas' ? ECOPONTOS : ECOPONTOS.filter(e => e.cidade === city);
+            grid.innerHTML = items.map(p => `
+                <article class="hc-card bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-1.5">
+                            <span class="hc-badge inline-block bg-emerald-100 text-emerald-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                                📍 ${p.cidade}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 hc-text-muted text-sm mb-1">${p.nome}</h3>
+                        <p class="text-xs text-slate-600 hc-text-muted mb-1.5"><strong>Endereço:</strong> ${p.endereco}</p>
+                        <p class="text-xs text-slate-600 hc-text-muted mb-1.5"><strong>Horário:</strong> ${p.horario}</p>
+                        <p class="text-xs text-emerald-800 hc-text-muted bg-emerald-50/70 hc-card p-2 rounded border border-emerald-100">
+                            <strong>Aceita:</strong> ${p.recebe}
+                        </p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-200 flex justify-end">
+                        <a href="${p.mapa}" target="_blank" rel="noopener noreferrer" class="hc-btn inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:text-emerald-900 px-2.5 py-1 rounded">
+                            🗺️ Ver localização no Google Maps →
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+
+            document.querySelectorAll('.c-filter-btn').forEach(btn => {
+                btn.className = 'c-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3.5 py-2 rounded-lg';
+            });
+            const mapId = {
+                'todas': 'cbtn-todas',
+                'São José do Rio Preto': 'cbtn-rp',
+                'Mirassol': 'cbtn-mirassol',
+                'Uchôa': 'cbtn-uchoa'
+            }[city];
+            if (mapId && document.getElementById(mapId)) {
+                document.getElementById(mapId).className = 'c-filter-btn hc-btn bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg';
+            }
+        }
+
+        function filterCity(city) {
+            renderEcopontos(city);
+        }
+
+        function recalcImpact() {
+            const pcs = parseInt(document.getElementById('input-pcs').value, 10);
+            const papelSem = parseInt(document.getElementById('input-papel').value, 10);
+            const elixoKg = parseInt(document.getElementById('input-elixo').value, 10);
+
+            document.getElementById('val-pcs').textContent = pcs + (pcs === 1 ? ' equipamento' : ' equipamentos');
+            document.getElementById('val-papel').textContent = papelSem + ' folhas/sem';
+            document.getElementById('val-elixo').textContent = elixoKg + ' kg/ano';
+
+            // Cálculo estimado: ~131.4 kWh poupados por PC/ano com gestão de energia + corte stand-by
+            const kwhAno = Math.round(pcs * 131.4);
+            const reaisAno = (kwhAno * 0.95).toFixed(2).replace('.', ',');
+            const folhasAno = papelSem * 52;
+            const aguaLitros = (folhasAno * 10).toLocaleString('pt-BR');
+            const co2Total = ((kwhAno * 0.085) + (folhasAno * 0.0045) + (elixoKg * 6.2)).toFixed(1).replace('.', ',');
+            const metaisRecup = (elixoKg * 0.85).toFixed(1).replace('.', ',');
+
+            document.getElementById('res-kwh').textContent = kwhAno.toLocaleString('pt-BR') + ' kWh';
+            document.getElementById('res-reais').textContent = 'R$ ' + reaisAno + '/ano';
+            document.getElementById('res-folhas').textContent = folhasAno.toLocaleString('pt-BR') + ' folhas/ano';
+            document.getElementById('res-agua').textContent = aguaLitros + ' litros de água';
+            document.getElementById('res-co2').textContent = co2Total + ' kg CO₂';
+            document.getElementById('res-metais').textContent = metaisRecup + ' kg reaproveitados';
+        }
+
+        function renderFeedbackTable() {
+            const tbody = document.getElementById('feedback-tbody');
+            tbody.innerHTML = FEEDBACK_LIST.map(f => `
+                <tr class="hover:bg-slate-50 hc-card">
+                    <td class="py-2 px-3 font-semibold text-slate-900 hc-text-muted">${f.nome}</td>
+                    <td class="py-2 px-3 text-slate-600 hc-text-muted">${f.cidade}</td>
+                    <td class="py-2 px-3 text-slate-600 hc-text-muted">${f.perfil}</td>
+                    <td class="py-2 px-3 text-slate-700 hc-text-muted">${f.comentario}</td>
+                </tr>
+            `).join('');
+        }
+
+        let totalImpactados = 35;
+        function submitFeedback(e) {
+            e.preventDefault();
+            const nome = document.getElementById('fb-nome').value.trim();
+            const cidade = document.getElementById('fb-cidade').value;
+            const perfil = document.getElementById('fb-perfil').value;
+            const nota = document.getElementById('fb-nota').value;
+            const comentario = document.getElementById('fb-comentario').value.trim() || 'Avaliou positivamente a plataforma e o guia regional.';
+
+            FEEDBACK_LIST.unshift({ nome, cidade, perfil, nota, comentario });
+            totalImpactados += 1;
+            document.getElementById('stat-impactados').textContent = totalImpactados;
+            renderFeedbackTable();
+
+            document.getElementById('fb-nome').value = '';
+            document.getElementById('fb-comentario').value = '';
+            const msg = document.getElementById('fb-msg');
+            msg.textContent = '✔ Participação registrada com sucesso! Total de pessoas impactadas: ' + totalImpactados;
+            msg.classList.remove('hidden');
+        }
+
+        function exportCSV() {
+            let csv = 'Participante;Cidade;Perfil;Avaliacao;Comentario\n';
+            FEEDBACK_LIST.forEach(r => {
+                csv += `"${r.nome}";"${r.cidade}";"${r.perfil}";"${r.nota}";"${r.comentario}"\n`;
+            });
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'indicadores_comunidade_ecotech_unip_2026_2.csv';
+            a.click();
+        }
+
+        // Recursos de Tecnologia Assistiva (Fonte, Contraste e Leitor de Voz)
+        let currentFontScale = 16;
+        function changeFontSize(dir) {
+            if (dir === 0) currentFontScale = 16;
+            else currentFontScale = Math.min(22, Math.max(14, currentFontScale + dir * 2));
+            document.documentElement.style.setProperty('--base-font-size', currentFontScale + 'px');
+        }
+
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        let isSpeaking = false;
+        function toggleSpeech() {
+            if (!('speechSynthesis' in window)) {
+                alert('Seu navegador não suporta leitura em voz alta.');
+                return;
+            }
+            if (isSpeaking) {
+                window.speechSynthesis.cancel();
+                isSpeaking = false;
+                document.getElementById('speech-label').textContent = 'Ouvir Guia (Áudio)';
+                return;
+            }
+            const texto = 'Bem-vindo ao portal EcoTech Comunidade, projeto de extensão Tecnologia e Sustentabilidade na Comunidade da UNIP. Aqui você encontra orientações para descarte seguro de lixo eletrônico com proteção de dados segundo a LGPD, endereços reais de Ecopontos em São José do Rio Preto, Mirassol e Uchôa, além de uma calculadora de economia de energia e redução do uso de papel.';
+            const utter = new SpeechSynthesisUtterance(texto);
+            utter.lang = 'pt-BR';
+            utter.onend = () => {
+                isSpeaking = false;
+                document.getElementById('speech-label').textContent = 'Ouvir Guia (Áudio)';
+            };
+            isSpeaking = true;
+            document.getElementById('speech-label').textContent = 'Parar Leitura';
+            window.speechSynthesis.speak(utter);
+        }
+
+        // Inicialização
+        renderWaste('todos');
+        renderEcopontos('todas');
+        recalcImpact();
+        renderFeedbackTable();
+    </script>
+</body>
+</html>

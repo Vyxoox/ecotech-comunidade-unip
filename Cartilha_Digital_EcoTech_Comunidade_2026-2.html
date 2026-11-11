@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cartilha Digital: EcoTech Comunidade - UNIP 2026/2</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 11mm 14mm 11mm 14mm;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            background: #ffffff;
+            font-size: 9.8pt;
+            line-height: 1.4;
+        }
+        .page {
+            width: 100%;
+            height: 268mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .header-box {
+            border: 2px solid #15803d;
+            border-radius: 10px;
+            padding: 16px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+            margin-bottom: 14px;
+        }
+        .header-uni {
+            font-size: 10pt;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: #0f172a;
+            text-transform: uppercase;
+        }
+        .header-sub {
+            font-size: 8.5pt;
+            color: #475569;
+            margin-top: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .header-title {
+            font-size: 17pt;
+            font-weight: 800;
+            color: #14532d;
+            margin: 8px 0 4px 0;
+        }
+        .header-desc {
+            font-size: 9.8pt;
+            font-style: italic;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+        .header-badge {
+            display: inline-block;
+            background-color: #dcfce7;
+            color: #166534;
+            font-weight: 700;
+            font-size: 8.8pt;
+            padding: 4px 14px;
+            border-radius: 6px;
+            border: 1px solid #86efac;
+        }
+        .sec-title {
+            border-left: 4px solid #15803d;
+            padding-left: 10px;
+            font-size: 11.5pt;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 12px 0 6px 0;
+        }
+        p {
+            margin-bottom: 7px;
+            text-align: justify;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 6px 0 8px 0;
+        }
+        .card {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 9px 12px;
+            background-color: #f8fafc;
+        }
+        .card-green {
+            border: 1px solid #86efac;
+            background-color: #f0fdf4;
+        }
+        .card-amber {
+            border: 1px solid #fde047;
+            background-color: #fefce8;
+        }
+        .card h4 {
+            font-size: 9.8pt;
+            font-weight: 800;
+            color: #14532d;
+            margin-bottom: 4px;
+        }
+        .card p {
+            font-size: 9.1pt;
+            margin-bottom: 0;
+            text-align: left;
+        }
+        ul.clean-list {
+            margin: 4px 0 8px 16px;
+        }
+        ul.clean-list li {
+            margin-bottom: 4px;
+            font-size: 9.5pt;
+            text-align: justify;
+        }
+        table.eco-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 6px 0 10px 0;
+            font-size: 8.8pt;
+        }
+        table.eco-table th {
+            background-color: #14532d;
+            color: #ffffff;
+            text-align: left;
+            padding: 6px 8px;
+            font-weight: 700;
+        }
+        table.eco-table td {
+            border: 1px solid #cbd5e1;
+            padding: 5px 8px;
+            vertical-align: top;
+        }
+        table.eco-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .ods-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .ods-item {
+            border: 1px solid #bae6fd;
+            background-color: #f0f9ff;
+            border-radius: 6px;
+            padding: 6px 8px;
+            text-align: center;
+        }
+        .ods-item strong {
+            display: block;
+            font-size: 9pt;
+            color: #0369a1;
+        }
+        .ods-item span {
+            font-size: 8pt;
+            color: #334155;
+        }
+        .footer-box {
+            border-top: 1px dashed #94a3b8;
+            padding-top: 8px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1 -->
+    <div class="page">
+        <div>
+            <div class="header-box">
+                <div class="header-uni">UNIP – UNIVERSIDADE PAULISTA (CAMPUS SÃO JOSÉ DO RIO PRETO – SP)</div>
+                <div class="header-sub">PROJETO DE EXTENSÃO UNIVERSITÁRIA (2026/2) – CST EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</div>
+                <div class="header-title">Cartilha Digital: EcoTech Comunidade</div>
+                <div class="header-desc">Guia Prático de Descarte de Lixo Eletrônico, TI Verde, Proteção de Dados e Acessibilidade Digital</div>
+                <div class="header-badge">Programa 9 – UNIP Sustentável: Tecnologia e Sustentabilidade na Comunidade (50h)</div>
+            </div>
+
+            <div class="sec-title">1. Tecnologia e Sustentabilidade na Comunidade (TI Verde)</div>
+            <p>
+                A transformação digital traz enormes benefícios para famílias, escolas e pequenos negócios, mas também exige responsabilidade socioambiental. O projeto <strong>EcoTech Comunidade</strong> une práticas de <strong>TI Verde (Green IT)</strong>, <strong>logística reversa de resíduos eletrônicos (e-Waste)</strong> e <strong>Tecnologias Assistivas</strong> para apoiar moradores e estabelecimentos de <strong>São José do Rio Preto, Mirassol e Uchôa</strong>.
+            </p>
+
+            <div class="sec-title">2. Gestão Segura do Lixo Eletrônico (e-Lixo) e Conformidade LGPD</div>
+            <p>
+                Placas de circuito, monitores, celulares, pilhas e baterias possuem metais pesados altamente tóxicos (<strong>chumbo, mercúrio, cádmio e lítio</strong>) que jamais devem ir para o lixo comum. Além do risco ambiental, o descarte exige cuidado com a <strong>Lei Geral de Proteção de Dados (Lei nº 13.709/2018 – LGPD)</strong>:
+            </p>
+            <div class="grid-2">
+                <div class="card card-amber">
+                    <h4>🔒 Sanitização de Dados (LGPD) antes do Descarte</h4>
+                    <p>Antes de descartar computadores, notebooks, HDs, SSDs ou celulares antigos, faça o backup em nuvem, desvincule contas (Google/Apple) e execute a restauração de fábrica ou formatação segura para impedir vazamento de dados pessoais e financeiros.</p>
+                </div>
+                <div class="card card-green">
+                    <h4>🔋 Manuseio Seguro de Pilhas e Baterias</h4>
+                    <p>Nunca perfure ou desmonte baterias de lítio (de celulares, notebooks ou maquininhas de cartão). Caso estejam estufadas, isole os conectores com fita adesiva e entregue imediatamente em um coletor de logística reversa.</p>
+                </div>
+            </div>
+
+            <div class="sec-title">3. Eficiência Energética e Cultura "Zero Papel" no Cotidiano</div>
+            <p>
+                Pequenos ajustes operacionais nos equipamentos domésticos e comerciais reduzem o consumo de energia elétrica e poupam recursos hídricos e florestais:
+            </p>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>⚡ Plano de Energia e Corte do Stand-by</h4>
+                    <p>Configure o sistema operacional para desligar a tela após <strong>5 minutos</strong> de inatividade e suspender o computador em <strong>15 minutos</strong>. Desligar réguas e estabilizadores após o expediente elimina o consumo "vampiro", economizando até <strong>130 kWh/ano por máquina</strong>.</p>
+                </div>
+                <div class="card">
+                    <h4>📄 Digitalização e Redução de Impressões</h4>
+                    <p>Substitua cadernos físicos, fichas e vias impressas desnecessárias por comprovantes digitais (PDF/WhatsApp), formulários eletrônicos e pastas em nuvem. Cada <strong>1.000 folhas A4 poupadas</strong> preservam cerca de <strong>10.000 litros de água</strong>.</p>
+                </div>
+            </div>
+
+            <div class="sec-title">4. Manutenção Preventiva para Estender a Vida Útil do Hardware</div>
+            <ul class="clean-list">
+                <li><strong>Higienização Térmica (Física):</strong> O acúmulo de poeira em coolers e fontes eleva a temperatura interna, aumenta o gasto energético e reduz a vida útil de placas-mãe e processadores.</li>
+                <li><strong>Otimização Lógica de Software:</strong> Desativar aplicativos desnecessários na inicialização do sistema e manter o armazenamento limpo permite que computadores mais antigos operem com fluidez, evitando trocas precoces e reduzindo a geração de sucata eletrônica.</li>
+            </ul>
+        </div>
+
+        <div class="footer-box">
+            <span>Material Educativo – Projeto de Extensão II (ADS – UNIP São José do Rio Preto)</span>
+            <span>Página 1 de 2</span>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2 -->
+    <div class="page page-break">
+        <div>
+            <div class="sec-title" style="margin-top: 0;">5. Onde Descartar? Ecopontos e PEVs na Região (Rio Preto, Mirassol e Uchôa)</div>
+            <p>
+                Consulte abaixo os principais pontos verificados para entrega voluntária e gratuita de lixo eletrônico, pilhas, baterias, lâmpadas e recicláveis em nossa região:
+            </p>
+
+            <table class="eco-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Município</th>
+                        <th style="width: 28%;">Local / Ponto de Coleta</th>
+                        <th style="width: 30%;">Endereço e Horário</th>
+                        <th style="width: 22%;">Resíduos Aceitos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>São José do Rio Preto</strong></td>
+                        <td><strong>Ecoponto Unimed Rio Preto (24h)</strong></td>
+                        <td>Acesso pela Rua Penita (entre Av. Bady Bassitt e Rua Imperial). <em>Aberto 24h.</em></td>
+                        <td>Pilhas, baterias, óleo de cozinha em PET e recicláveis.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>São José do Rio Preto</strong></td>
+                        <td><strong>PEVs Green Eletron (Varejo e Shoppings)</strong></td>
+                        <td>Leroy Merlin (Av. Mário Andreaza, 404), Shopping Cidade Norte e Plaza Avenida.</td>
+                        <td>Celulares, cabos, carregadores, mouses, teclados e pilhas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>São José do Rio Preto</strong></td>
+                        <td><strong>Reversis / Cooperlagos (Coleta de TI)</strong></td>
+                        <td>Agendamento gratuito via WhatsApp: <strong>(17) 3198-2616</strong> | Seg a Sex, 8h às 18h.</td>
+                        <td>Computadores, monitores, impressoras, nobreaks e TVs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>São José do Rio Preto</strong></td>
+                        <td><strong>Pontos de Apoio Municipais</strong></td>
+                        <td>Unidade Nazareth (Av. Solon Varginha) e mais 13 pontos. Seg–Sáb 7h–19h; Dom 7h–13h.</td>
+                        <td>Eletrodomésticos inservíveis, metais, vidro, papelão e móveis.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mirassol</strong></td>
+                        <td><strong>Ecoponto Sanessol (24 Horas)</strong></td>
+                        <td>Cruzamento da R. João Caetano M. de Almeida com R. 9 de Julho – Centro. <em>Aberto 24h.</em></td>
+                        <td><strong>Lixo eletrônico (e-lixo)</strong>, lâmpadas e óleo vegetal em PET.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mirassol</strong></td>
+                        <td><strong>Coletor Sanessol & Ponto Karina</strong></td>
+                        <td>Av. Luiz Fernando Moreira, 1115 (Sanessol) e Av. Benedito José Garetti (Bairro Karina).</td>
+                        <td>Pilhas, baterias e tampinhas (Sanessol) / Volumosos (Karina).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Uchôa</strong></td>
+                        <td><strong>Depto. de Meio Ambiente / ACEU e Estação Cultura</strong></td>
+                        <td>Prefeitura (Av. Pedro de Toledo, 1011 – Cidade Alta), ACEU e Estação Cultura.</td>
+                        <td>Campanhas permanentes e mutirões de coleta de eletrônicos e pilhas.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="sec-title">6. Plataforma Web Interativa e Tecnologias Assistivas (WCAG 2.1)</div>
+            <p>
+                Como produto tecnológico desta ação extensionista, o grupo desenvolveu o portal web acessível <strong>EcoTech Comunidade</strong> (disponível online gratuitamente em <a href="https://vyxoox.github.io/ecotech-comunidade-unip/" style="color: #14532d; font-weight: bold;">https://vyxoox.github.io/ecotech-comunidade-unip/</a>), projetado com recursos de <strong>Tecnologia Assistiva</strong>:
+            </p>
+            <div class="grid-2">
+                <div class="card card-green">
+                    <h4>🔊 Recursos de Acessibilidade Integrados</h4>
+                    <p>O portal conta com <strong>Leitor de Voz nativo em Português (Web Speech API)</strong>, botões de ampliação dinâmica de tipografia (<strong>A- / A+</strong>), navegação por teclado e modo de <strong>Alto Contraste (WCAG AAA)</strong>.</p>
+                </div>
+                <div class="card card-green">
+                    <h4>🧮 Calculadora Interativa de Impacto</h4>
+                    <p>Permite que moradores e comerciantes calculem em tempo real a economia anual de energia (kWh e R$), litros de água poupados com redução de papel e emissões de CO₂ evitadas.</p>
+                </div>
+            </div>
+
+            <div class="sec-title">7. Contribuição aos Objetivos de Desenvolvimento Sustentável (ONU)</div>
+            <div class="ods-bar">
+                <div class="ods-item">
+                    <strong>ODS 4 • Educação</strong>
+                    <span>Educação ambiental e letramento digital inclusivo</span>
+                </div>
+                <div class="ods-item">
+                    <strong>ODS 8 • Trabalho</strong>
+                    <span>Eficiência operacional e modernização local</span>
+                </div>
+                <div class="ods-item">
+                    <strong>ODS 11 • Cidades</strong>
+                    <span>Gestão correta de resíduos nas comunidades</span>
+                </div>
+                <div class="ods-item">
+                    <strong>ODS 12 e 13 • Clima</strong>
+                    <span>Consumo responsável e redução de CO₂</span>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 10px; background-color: #f1f5f9;">
+                <h4>📌 Equipe Responsável – Curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas (UNIP)</h4>
+                <p style="font-size: 8.8pt; color: #334155;">
+                    <strong>Discentes:</strong> Vittor Salvador de Oliveira (R1321D0) • Vitor Hugo Godoy Amaral (R9918B8) • Saullo Viale (R260JI5) • Cauê • Gabriel • Kenai • Morgan.<br>
+                    <strong>Unidade:</strong> Campus São José do Rio Preto – SP | <strong>Semestre:</strong> 2026/2 | <strong>Atividade:</strong> Tecnologia e Sustentabilidade na Comunidade (50h).
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <span>Cartilha Digital de Conscientização e Apoio Comunitário – Programa 9: UNIP Sustentável</span>
+            <span>Página 2 de 2</span>
+        </div>
+    </div>
+
+</body>
+</html>
