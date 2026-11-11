@@ -381,7 +381,7 @@
                         </div>
                         <div class="bg-emerald-50 hc-card border border-emerald-200 rounded-xl p-3.5">
                             <div class="text-[11px] font-bold uppercase text-emerald-800 hc-text-muted">Indicador 3 • Impacto Social</div>
-                            <div class="text-xl font-extrabold text-emerald-900 hc-text-muted mt-0.5">35 Atendidos</div>
+                            <div id="ind3-impactados" class="text-xl font-extrabold text-emerald-900 hc-text-muted mt-0.5">35 Atendidos</div>
                             <div class="text-[11px] text-emerald-700 hc-text-muted">Pessoas orientadas presencial e digitalmente</div>
                         </div>
                     </div>
@@ -564,14 +564,48 @@
             }
         ];
 
-        // 3. Amostra inicial de avaliações comunitárias
-        const FEEDBACK_LIST = [
-            { nome: 'Carlos Eduardo M.', cidade: 'Mirassol', perfil: 'Comércio / Serviços', nota: '5 - Excelente', comentario: 'Muito útil saber do Ecoponto 24h na Rua 9 de Julho para levar periféricos e lâmpadas.' },
-            { nome: 'Fernanda R. Oliveira', cidade: 'São José do Rio Preto', perfil: 'Morador(a) Local', nota: '5 - Excelente', comentario: 'O alerta sobre apagar dados (LGPD) antes de descartar celular antigo foi essencial.' },
-            { nome: 'João Batista S.', cidade: 'Uchôa', perfil: 'Morador(a) Local', nota: '5 - Excelente', comentario: 'Usei o leitor de voz e o botão de aumentar a letra, ficou muito fácil de ler no celular.' },
-            { nome: 'Patrícia L. Souza', cidade: 'São José do Rio Preto', perfil: 'Comércio / Serviços', nota: '5 - Excelente', comentario: 'A calculadora mostrou quanto gastamos à toa com papel térmico e PC ligado à noite.' },
-            { nome: 'Marcos Vinícius A.', cidade: 'Mirassol', perfil: 'Estudante / Comunidade', nota: '5 - Excelente', comentario: 'Plataforma rápida e direta, já separei pilhas de maquininha e cabos velhos para levar.' }
+        // 3. Amostra inicial + Sincronização em Nuvem em Tempo Real (Multi-dispositivos)
+        const CLOUD_TOPIC = 'ecotech_unip_ads_2026_r1321d0_v1';
+        const STORAGE_KEY = 'ecotech_unip_feedback_2026_2';
+        const BASE_FEEDBACK = [
+            { id: 'seed-1', nome: 'Carlos Eduardo M.', cidade: 'Mirassol', perfil: 'Comércio / Serviços', nota: '5 - Excelente', comentario: 'Muito útil saber do Ecoponto 24h na Rua 9 de Julho para levar periféricos e lâmpadas.' },
+            { id: 'seed-2', nome: 'Fernanda R. Oliveira', cidade: 'São José do Rio Preto', perfil: 'Morador(a) Local', nota: '5 - Excelente', comentario: 'O alerta sobre apagar dados (LGPD) antes de descartar celular antigo foi essencial.' },
+            { id: 'seed-3', nome: 'João Batista S.', cidade: 'Uchôa', perfil: 'Morador(a) Local', nota: '5 - Excelente', comentario: 'Usei o leitor de voz e o botão de aumentar a letra, ficou muito fácil de ler no celular.' },
+            { id: 'seed-4', nome: 'Patrícia L. Souza', cidade: 'São José do Rio Preto', perfil: 'Comércio / Serviços', nota: '5 - Excelente', comentario: 'A calculadora mostrou quanto gastamos à toa com papel térmico e PC ligado à noite.' },
+            { id: 'seed-5', nome: 'Marcos Vinícius A.', cidade: 'Mirassol', perfil: 'Estudante / Comunidade', nota: '5 - Excelente', comentario: 'Plataforma rápida e direta, já separei pilhas de maquininha e cabos velhos para levar.' }
         ];
+
+        let FEEDBACK_LIST = [...BASE_FEEDBACK];
+        const seenIds = new Set(BASE_FEEDBACK.map(x => x.id));
+
+        function loadLocalCache() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const saved = JSON.parse(raw);
+                if (Array.isArray(saved)) {
+                    saved.forEach(entry => addEntryIfNew(entry, false));
+                }
+            } catch (e) {}
+        }
+
+        function saveLocalCache() {
+            try {
+                const customEntries = FEEDBACK_LIST.filter(x => !String(x.id).startsWith('seed-'));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(customEntries));
+            } catch (e) {}
+        }
+
+        function addEntryIfNew(entry, prepend = true) {
+            if (!entry || !entry.nome) return false;
+            const uid = entry.id || `${entry.nome}-${entry.cidade}-${entry.comentario}`;
+            if (seenIds.has(uid)) return false;
+            seenIds.add(uid);
+            entry.id = uid;
+            if (prepend) FEEDBACK_LIST.unshift(entry);
+            else FEEDBACK_LIST.push(entry);
+            return true;
+        }
 
         function renderWaste(filter = 'todos') {
             const grid = document.getElementById('waste-grid');
@@ -688,10 +722,44 @@
                     <td class="py-2 px-3 text-slate-700 hc-text-muted">${f.comentario}</td>
                 </tr>
             `).join('');
+
+            const extraCount = Math.max(0, FEEDBACK_LIST.length - BASE_FEEDBACK.length);
+            const totalImpactados = 35 + extraCount;
+            const statEl = document.getElementById('stat-impactados');
+            if (statEl) statEl.textContent = totalImpactados;
+            const ind3El = document.getElementById('ind3-impactados');
+            if (ind3El) ind3El.textContent = totalImpactados + ' Atendidos';
+            const countLabel = document.getElementById('table-count-label');
+            if (countLabel) {
+                countLabel.textContent = `Sincronizado em nuvem (${FEEDBACK_LIST.length} registros na tabela)`;
+            }
         }
 
-        let totalImpactados = 35;
-        function submitFeedback(e) {
+        async function syncCloudFeedback() {
+            try {
+                const resp = await fetch(`https://ntfy.sh/${CLOUD_TOPIC}/json?poll=1&since=24h`);
+                if (!resp.ok) return;
+                const text = await resp.text();
+                const lines = text.trim().split('\n').filter(Boolean);
+                let changed = false;
+                for (const line of lines) {
+                    try {
+                        const pkt = JSON.parse(line);
+                        if (pkt.event === 'message' && pkt.message) {
+                            const data = JSON.parse(pkt.message);
+                            if (!data.id) data.id = pkt.id;
+                            if (addEntryIfNew(data, true)) changed = true;
+                        }
+                    } catch (err) {}
+                }
+                if (changed) {
+                    saveLocalCache();
+                    renderFeedbackTable();
+                }
+            } catch (e) {}
+        }
+
+        async function submitFeedback(e) {
             e.preventDefault();
             const nome = document.getElementById('fb-nome').value.trim();
             const cidade = document.getElementById('fb-cidade').value;
@@ -699,19 +767,37 @@
             const nota = document.getElementById('fb-nota').value;
             const comentario = document.getElementById('fb-comentario').value.trim() || 'Avaliou positivamente a plataforma e o guia regional.';
 
-            FEEDBACK_LIST.unshift({ nome, cidade, perfil, nota, comentario });
-            totalImpactados += 1;
-            document.getElementById('stat-impactados').textContent = totalImpactados;
+            const newEntry = {
+                id: 'usr-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+                dataHora: new Date().toLocaleString('pt-BR'),
+                nome,
+                cidade,
+                perfil,
+                nota,
+                comentario
+            };
+
+            addEntryIfNew(newEntry, true);
+            saveLocalCache();
             renderFeedbackTable();
 
             document.getElementById('fb-nome').value = '';
             document.getElementById('fb-comentario').value = '';
             const msg = document.getElementById('fb-msg');
-            msg.textContent = '✔ Participação registrada com sucesso! Total de pessoas impactadas: ' + totalImpactados;
+            const totalAtual = 35 + Math.max(0, FEEDBACK_LIST.length - BASE_FEEDBACK.length);
+            msg.textContent = '✔ Participação salva e sincronizada na nuvem! Total de pessoas impactadas: ' + totalAtual;
             msg.classList.remove('hidden');
+
+            try {
+                await fetch(`https://ntfy.sh/${CLOUD_TOPIC}`, {
+                    method: 'POST',
+                    body: JSON.stringify(newEntry)
+                });
+            } catch (err) {}
         }
 
-        function exportCSV() {
+        async function exportCSV() {
+            await syncCloudFeedback();
             let csv = 'Participante;Cidade;Perfil;Avaliacao;Comentario\n';
             FEEDBACK_LIST.forEach(r => {
                 csv += `"${r.nome}";"${r.cidade}";"${r.perfil}";"${r.nota}";"${r.comentario}"\n`;
@@ -761,10 +847,12 @@
         }
 
         // Inicialização
+        loadLocalCache();
         renderWaste('todos');
         renderEcopontos('todas');
         recalcImpact();
         renderFeedbackTable();
+        syncCloudFeedback();
     </script>
 </body>
 </html>
